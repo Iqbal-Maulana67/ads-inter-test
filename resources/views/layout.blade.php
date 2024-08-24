@@ -74,7 +74,7 @@
                             <ul id="reports" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle"></ul>
                         </li>
                         <li class="">
-                            <a href="{{ route('category') }}" class="">
+                            <a href="{{ route('product') }}" class="">
                                 <svg class="svg-icon" id="p-dash7" width="20" height="20"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"

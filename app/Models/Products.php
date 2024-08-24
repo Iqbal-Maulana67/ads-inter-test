@@ -17,4 +17,14 @@ class Products extends Model
     ];
 
     public $timestamps = false;
+
+    public function images()
+    {
+        return $this->hasMany(ProductAssets::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
 }
