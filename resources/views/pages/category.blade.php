@@ -36,7 +36,7 @@
         <div class="col-lg-12">
             <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
                 <div>
-                    <h4 class="mb-3">Schedule List</h4>
+                    <h4 class="mb-3">Category List</h4>
                 </div>
                 <button class="btn btn-primary add-list" data-toggle="modal" data-target="#modalInsert"><i
                         class="las la-plus mr-3"></i>Add Category</button>
@@ -78,11 +78,12 @@
         </div>
         <div class="col-lg-12">
             <div class="table-responsive rounded mb-3">
-                <table class="data-tables table mb-0">
+                <table id="category_table" class="table mb-0">
                     <thead class="bg-white text-uppercase">
                         <tr class="ligth ligth-data">
                             <th>Id</th>
                             <th>Category Name</th>
+                            <th>Item Total</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -91,6 +92,7 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
+                                <td>{{ $category->products_count }}</td>
                                 <td>
                                     <div class="d-flex align-items-center list-action">
                                         <a class="badge bg-success mr-2" data-toggle="modal"
@@ -173,4 +175,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-script')
+    <script>
+        $(document).ready(function() {
+            $('#category_table').DataTable({
+                "ordering": false // Menonaktifkan semua fitur pengurutan
+            });
+        });
+    </script>
 @endsection

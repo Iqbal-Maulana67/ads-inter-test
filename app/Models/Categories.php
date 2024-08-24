@@ -14,4 +14,8 @@ class Categories extends Model
     ];
 
     public $timestamps = false;
+    public function products()
+    {
+        return $this->hasMany(Products::class, 'category_id');
+    }
 }

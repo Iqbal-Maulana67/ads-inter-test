@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.dashboard');
-});
+})->name('dashboard');
 
 route::get('/categories', [CategoryController::class, 'index'])->name('category');
 route::post('/categories/store', [CategoryController::class, 'store'])->name('category.store');

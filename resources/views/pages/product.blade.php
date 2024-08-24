@@ -36,7 +36,7 @@
         <div class="col-lg-12">
             <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
                 <div>
-                    <h4 class="mb-3">Schedule List</h4>
+                    <h4 class="mb-3">Product List</h4>
                 </div>
                 <button class="btn btn-primary add-list" data-toggle="modal" data-target="#modalInsert"><i
                         class="las la-plus mr-3"></i>Add Product</button>
@@ -113,12 +113,13 @@
         </div>
         <div class="col-lg-12">
             <div class="table-responsive rounded mb-3">
-                <table class="data-tables table mb-0">
+                <table id="product_table" class="table mb-0">
                     <thead class="bg-white text-uppercase">
                         <tr class="ligth ligth-data">
                             <th>Id</th>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Price</th>
                             <th>Category Name</th>
                             <th>Action</th>
                         </tr>
@@ -129,6 +130,7 @@
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->slug }}</td>
+                                <td>{{ $product->price }}</td>
                                 <td>{{ $product->category->name }} </td>
                                 <td>
                                     <div class="d-flex align-items-center list-action">
@@ -150,7 +152,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalCenterTitle">Add Category</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -159,48 +162,53 @@
                                                 data-toggle="validator" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Name *</label>
-                                                                <input type="text" class="form-control" rows="4" name="name"
-                                                                    value="{{ $product->name }}" required>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Name *</label>
+                                                            <input type="text" class="form-control" rows="4"
+                                                                name="name" value="{{ $product->name }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Slug *</label>
+                                                            <input type="text" class="form-control" rows="4"
+                                                                name="slug" value="{{ $product->slug }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Price *</label>
+                                                            <input type="text" class="form-control" rows="4"
+                                                                name="price" value="{{ $product->price }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Category *</label>
+                                                            <select name="category_id" class="selectpicker form-control"
+                                                                data-style="py-0">
+                                                                <option>Choose Channel</option>
+                                                                @foreach ($categories as $category)
+                                                                    <option value="{{ $category->id }}"
+                                                                        {{ $category->id == $product->category_id ? 'selected' : '' }}>
+                                                                        {{ $category->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Images (Leave it blank if it's not want to
+                                                                edited)</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="customFile" name="images[]" required multiple>
+                                                                <label class="custom-file-label" for="customFile">Choose
+                                                                    file</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Slug *</label>
-                                                                <input type="text" class="form-control" rows="4" name="slug"
-                                                                value="{{ $product->slug }}" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Price *</label>
-                                                                <input type="text" class="form-control" rows="4" name="price"
-                                                                value="{{ $product->price }}" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Category *</label>
-                                                                <select name="category_id" class="selectpicker form-control" data-style="py-0">
-                                                                    <option>Choose Channel</option>
-                                                                    @foreach ($categories as $category)
-                                                                        <option value="{{ $category->id }}" {{ $category->id == $product->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Images (Leave it blank if it's not want to edited)</label>
-                                                                <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input" id="customFile"
-                                                                        name="images[]" required multiple>
-                                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    </div>
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
@@ -247,4 +255,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-script')
+    <script>
+        $(document).ready(function() {
+            $('#product_table').DataTable({
+                "ordering": false // Menonaktifkan semua fitur pengurutan
+            });
+        });
+    </script>
 @endsection
